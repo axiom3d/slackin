@@ -140,7 +140,7 @@ else
   if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
     echo npm install
     cd "$DEPLOYMENT_TARGET"
-    eval $NPM_CMD install --production
+    eval $NPM_CMD install --save-prod
     cd - > /dev/null
   fi
 fi
