@@ -72,37 +72,15 @@ fi
 #NPM_CMD="\"$NODE_EXE\" \"$PROGRAMFILES\\npm\\3.3.12\\node_modules\\npm\\bin\\npm-cli.js\""
 
 selectNodeVersion () {
-  if [[ -n "$KUDU_SELECT_NODE_VERSION_CMD" ]]; then
-    SELECT_NODE_VERSION="$KUDU_SELECT_NODE_VERSION_CMD \"$DEPLOYMENT_SOURCE\" \"$DEPLOYMENT_TARGET\" \"$DEPLOYMENT_TEMP\""
-    eval $SELECT_NODE_VERSION
-    exitWithMessageOnError "select node version failed"
-
-    if [[ -e "$DEPLOYMENT_TEMP/__nodeVersion.tmp" ]]; then
-      NODE_EXE=`cat "$DEPLOYMENT_TEMP/__nodeVersion.tmp"`
-      exitWithMessageOnError "getting node version failed"
-    fi
-    
-    if [[ -e "$DEPLOYMENT_TEMP/.tmp" ]]; then
-      NPM_JS_PATH=`cat "$DEPLOYMENT_TEMP/__npmVersion.tmp"`
-      exitWithMessageOnError "getting npm version failed"
-    fi
-
-    if [[ ! -n "$NODE_EXE" ]]; then
-      NODE_EXE=node
-    fi
-
-    NPM_CMD="\"$NODE_EXE\" \"$NPM_JS_PATH\""
-  else
     NPM_CMD=npm
     NODE_EXE=node
-  fi
 }
 
 # Deployment
 # ----------
 
 # Select node version
-# selectNodeVersion
+selectNodeVersion
 
 echo -n "Using Node: "
 "${NODE_EXE}" -v
@@ -140,7 +118,7 @@ else
   if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
     echo npm install
     cd "$DEPLOYMENT_TARGET"
-    eval $NPM_CMD install .
+    eval $NPM_CMD install --production
     cd - > /dev/null
   fi
 fi
