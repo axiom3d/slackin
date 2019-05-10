@@ -102,7 +102,7 @@ selectNodeVersion () {
 # ----------
 
 # Select node version
-# selectNodeVersion
+selectNodeVersion
 
 echo -n "Using Node: "
 "${NODE_EXE}" -v
