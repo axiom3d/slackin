@@ -101,7 +101,7 @@
             "SLACKIN_RELEASE": "[parameters('slackinRelease')]",
             "WEBSITE_NPM_DEFAULT_VERSION": "3.3.12",
             "WEBSITE_NODE_DEFAULT_VERSION": "5.1.1",
-            "command": "bash scripts/azuredeploy.sh"
+            "command": "scripts/azuredeploy.cmd"
           }
         },
         {
